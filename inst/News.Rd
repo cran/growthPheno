@@ -1,5 +1,15 @@
 \name{news}
 \title{News for Package growthPheno}
+\section{growthPheno Version 1.0-15 (2019-07-11)}{
+  \itemize{
+   \item{Change Days to DAP in \code{tomato.dat}.}
+   \item{Fix two bugs in probeSmoothing.}
+}}
+\section{growthPheno Version 1.0-14 (2019-06-05)}{
+  \itemize{
+   \item{Add Treatments column to tomato.dat.}
+   \item{Modify probeSmoothing so that growth rates are caluclated and saved even when they are not plotted.}
+}}
 \section{growthPheno Version 1.0-13 (2019-05-12)}{
   \itemize{
     \item{Modify the Title and Description of the package, as well as the Overview of the package.}

@@ -1761,11 +1761,11 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
   invisible(med.devn.dat)
 }
 
-"plotTrait" <- function(tmp, response, response.smooth, x, 
+"plotTrait" <- function(tmp, response, response.smooth, x, xname, 
                         individuals, id.cols, times.factor, traits, 
                         methlabs, smethods, df, 
                         plots, devnplots, facet.x, facet.y, labeller = NULL, 
-                        colour, colour.column, colour.values, alpha, 
+                        colour = "black", colour.column, colour.values = NULL, alpha, 
                         x.title, y.title = NULL, ggplotFuncs, ...)
 {
   if (is.null(y.title))
@@ -1806,7 +1806,8 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
                          Method <- factor(Method, labels = scale.labs)
                        })
       
-      plt <- plotLongitudinal(data = tmp.sm, x=x, response = response, individuals = individuals, 
+      plt <- plotLongitudinal(data = tmp.sm, x=x, xname = xname, 
+                              response = response, individuals = individuals, 
                               facet.x="Method", facet.y=facet.y, labeller = labeller, 
                               colour = colour, colour.column = colour.column, 
                               colour.values = colour.values, alpha = alpha, 
@@ -1837,7 +1838,7 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
                           varying = kresponses, v.names = response, 
                           idvar = id.cols, timevar = "DF")
         tmp.sm$DF <- factor(tmp.sm$DF, labels = c("Raw", paste("DF",df, sep =  " = ")))
-        plt <- plotLongitudinal(data = tmp.sm[tmp.sm$DF != "Raw",], x=x, 
+        plt <- plotLongitudinal(data = tmp.sm[tmp.sm$DF != "Raw",], x=x, xname = xname, 
                                 response = response, individuals = individuals, 
                                 facet.x="DF", facet.y=facet.y, labeller = labeller, 
                                 colour = colour, colour.column = colour.column, 
@@ -1860,7 +1861,8 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
       #Plot response
       if (("bothseparately" %in% plots) & ("response" %in% traits))
       { 
-        pltu <- plotLongitudinal(data = tmp, x=x, response = response, individuals = individuals, 
+        pltu <- plotLongitudinal(data = tmp, x=x, xname = xname, 
+                                 response = response, individuals = individuals, 
                                  facet.x=facet.x, facet.y=facet.y, labeller = labeller, 
                                  colour = colour, colour.column = colour.column, 
                                  colour.values = colour.values, alpha = alpha, 
@@ -1876,7 +1878,8 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
           for (degfree in df)
           { 
             r <- paste(response.smooth, methlabs[smethod], degfree, sep=".")
-            plt <- plotLongitudinal(data = tmp, x=x, response = r, individuals = individuals, 
+            plt <- plotLongitudinal(data = tmp, x=x, xname = xname, 
+                                    response = r, individuals = individuals, 
                                     facet.x=facet.x, facet.y=facet.y, 
                                     labeller = labeller, 
                                     colour = colour, colour.column = colour.column, 
@@ -1961,8 +1964,11 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
   {
     if (!get.rates)
     {
-      traits <- "response"
-      warning("get.rates is FALSE and so trait.types changed to response")
+      if (length(traits) > 1 || traits != "response")
+      {
+        traits <- "response"
+        warning("get.rates is FALSE and so trait.types changed to response")
+      }
     }
     else
       grates <- c("AGR","RGR")[c("AGR","RGR") %in% traits]
@@ -1987,7 +1993,9 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
   response.smooth <- paste(response, "smooth", sep=".")
   responses.smooth <- response.smooth
   #no need for unsmoothed GRs if not plotted (need for dfcompare even though not plotted)
-  if ((plotunsmooth | !("none" %in% devnplots)) & get.rates) 
+  #if ((plotunsmooth | !("none" %in% devnplots)) & get.rates) 
+  #Always get rates if get.rates is TRUE so that they are in the returned data
+  if (get.rates) 
   {
     tmp <- splitContGRdiff(tmp, response, INDICES=individuals,
                            which.rates = grates, times.factor=times.factor)
@@ -2048,8 +2056,9 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
   { 
     #Plot response
     if ("response" %in% traits)
-      plotTrait(tmp = tmp, response = response, response.smooth = response.smooth, x = x, 
-                individuals = individuals, id.cols = id.cols, times.factor = times.factor, 
+      plotTrait(tmp = tmp, response = response, response.smooth = response.smooth, 
+                x = x, xname = xname, individuals = individuals, 
+                id.cols = id.cols, times.factor = times.factor, 
                 traits = traits, methlabs = methlabs, smethods = smethods, df = df, 
                 plots = plots, devnplots = devnplots, 
                 facet.x = facet.x, facet.y = facet.y, labeller = labeller, 
@@ -2062,8 +2071,9 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
     {
       kresp <- paste(response, grate, sep = ".")
       kresp.sm <- paste(response.smooth, grate, sep = ".")
-      plotTrait(tmp = tmp, response = kresp, response.smooth = kresp.sm, x = x, 
-                individuals = individuals, id.cols = id.cols, times.factor = times.factor, 
+      plotTrait(tmp = tmp, response = kresp, response.smooth = kresp.sm, 
+                x = x, xname = xname, individuals = individuals, 
+                id.cols = id.cols, times.factor = times.factor, 
                 traits = traits, methlabs = methlabs, smethods = smethods, df = df, 
                 plots = plots, devnplots = devnplots, 
                 facet.x = facet.x, facet.y = facet.y, labeller = labeller, 
