@@ -32,8 +32,9 @@ plotDeviationsBoxes(data, observed, smoothed, x.factor,
  \item{labeller}{A \code{\link{ggplot}} \code{\link{function}} for labelling the 
                  facets of a plot produced using the \code{\link{ggplot}} function. 
                  For more information see \code{\link{ggplot}}.}
- \item{df}{A \code{\link{numeric}} specifying the set of degrees of freedom to 
-              be probed.}
+ \item{df}{A \code{\link{numeric}} specifying the smoothing degrees of freedom used in 
+            producing the \code{response.smoothed} and which is to be used in labelling 
+            the plot.}
  \item{deviations.plots}{A \code{\link{character}} specifying whether 
               \code{absolute} and/or \code{relative} deviations are to be plotted.}
  \item{ggplotFuncs}{A \code{\link{list}}, each element of which contains the 

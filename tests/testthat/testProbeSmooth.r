@@ -100,7 +100,16 @@ test_that("exampleData_growthPheno", {
   
   testthat::expect_warning(tmp <- probeSmoothing(data = longi.dat, response = "Area", 
                                                  df = c(4,7), x="xDays+24.16666667", 
-                                                 which.plots = "dfcompare", facet.y = ".",
+                                                 which.plots = "methodsc", 
+                                                 facet.y = ".",
+                                                 get.rates = FALSE,
+                                                 ggplotFuncs=vline))
+  testthat::expect_equal(nrow(tmp), 280)
+  testthat::expect_equal(ncol(tmp), 7)
+  testthat::expect_warning(tmp <- probeSmoothing(data = longi.dat, response = "Area", 
+                                                 df = c(4,7), x="xDays+24.16666667", 
+                                                 which.plots = "dfcompare", 
+                                                 facet.y = ".",
                                                  get.rates = FALSE,
                                                  ggplotFuncs=vline))
   testthat::expect_equal(nrow(tmp), 280)
@@ -108,7 +117,8 @@ test_that("exampleData_growthPheno", {
   
   testthat::expect_warning(tmp <- probeSmoothing(data = longi.dat, response = "Area", 
                                                  df = c(4:7), x="xDays+24.16666667", 
-                                                 which.plots = "dfcompare", facet.y = ".",
+                                                 which.plots = "dfcompare", 
+                                                 facet.y = ".",
                                                  alpha = 0.6, get.rates = FALSE,
                                                  ggplotFuncs=vline))
   testthat::expect_equal(nrow(tmp), 280)
@@ -124,7 +134,8 @@ test_that("exampleData_growthPheno", {
   
   testthat::expect_warning(tmp <- probeSmoothing(data = longi.dat, response = "Area", 
                                                  df = c(4:7), x="xDays+24.16666667", 
-                                                 facet.y = ".", deviations.plots = "compare",
+                                                 facet.y = ".", 
+                                                 deviations.plots = "compare",
                                                  propn.types = c(0.025,0.2, 0.25),
                                                  ggplotFuncs=vline))
   testthat::expect_equal(nrow(tmp), 280)
@@ -135,7 +146,7 @@ test_that("exampleData_growthPheno", {
                                                  facet.x = ".", facet.y = ".",
                                                  which.plots = "none",
                                                  deviations.plots = "compare", 
-                                                 propn.traits = NULL, 
+                                                 propn.types = NULL, 
                                                  ggplotFuncs=vline))
   testthat::expect_equal(nrow(tmp), 280)
   testthat::expect_equal(ncol(tmp), 19)
@@ -145,7 +156,7 @@ test_that("exampleData_growthPheno", {
                                                    facet.x = ".", facet.y = ".",
                                                    which.plots = "none",
                                                    deviations.plots = "none", 
-                                                   propn.traits = NULL))
+                                                   propn.types = NULL))
   testthat::expect_silent(med <- plotMedianDeviations(data = traits, 
                                                       response = "Area", 
                                                       response.smoothed = "Area.smooth", 
@@ -157,6 +168,24 @@ test_that("exampleData_growthPheno", {
                                                       ggplotFuncsMedDevn = vline))
   testthat::expect_equal(nrow(med), 28)
   testthat::expect_equal(ncol(med), 6)
+  testthat::expect_warning(traits <- probeSmoothing(data = longi.dat, response = "Area", 
+                                                   df = c(4:7), x="xDays+24.16666667", 
+                                                   facet.x = ".", facet.y = ".",
+                                                   which.plots = "none",
+                                                   deviations.plots = c("compare", 
+                                                                        "absolute"),
+                                                   propn.types = NULL))
+  testthat::expect_equal(nrow(traits), 280)
+  testthat::expect_equal(ncol(traits), 19)
+  testthat::expect_warning(traits <- probeSmoothing(data = longi.dat, response = "Area", 
+                                                   df = c(4:7), x="xDays+24.16666667", 
+                                                   facet.x = ".", facet.y = ".",
+                                                   which.plots = "methodsc",
+                                                   deviations.plots = c("compare", 
+                                                                        "absolute"),
+                                                   propn.types = NULL))
+  testthat::expect_equal(nrow(traits), 280)
+  testthat::expect_equal(ncol(traits), 19)
   
 })
 
@@ -175,14 +204,14 @@ test_that("tomato_growthPheno", {
   labelMyc <- as_labeller(function(lev) paste(lev, "AMF"))
   labelZn <- as_labeller(function(lev) paste("Zn:", lev, "ppm"))
   
-  #'## Gives error that the Length of propn.traits is not the same as the number of traits
+  #'## Gives error that the Length of propn.types is not the same as the number of traits
   testthat::expect_error(tmp <- probeSmoothing(data = tomato.dat, 
                                                response = "Area", 
                                                times.factor = "DAP", xname = "xDAP", 
                                                smoothing.methods = c("dir", "log"), 
                                                facet.x = "Zn", facet.y = "AMF",
                                                df = c(4,7), x="xDAP", get.rates = FALSE,
-                                               which.plots = "method", 
+                                               which.plots = "methodsc", 
                                                deviations.plots = "compare",
                                                labeller = labeller(Zn = labelZn, 
                                                                    AMF = labelMyc)))
@@ -193,7 +222,7 @@ test_that("tomato_growthPheno", {
                                                  facet.x = "Zn", facet.y = "AMF",
                                                  df = c(4,7), x="xDAP", get.rates = FALSE,
                                                  propn.types = 0.1,
-                                                 which.plots = "method", 
+                                                 which.plots = "methodsc", 
                                                  deviations.plots = "compare",
                                                  labeller = labeller(Zn = labelZn, 
                                                                      AMF = labelMyc)))

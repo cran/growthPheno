@@ -1,13 +1,13 @@
 Package: growthPheno
-Version: 1.0-15
-Date: 2019-07-11
+Version: 1.0-21
+Date: 2020-01-12
 Title: Plotting, Smoothing and Growth Trait Extraction for Longitudinal
         Data
 Authors@R: person("Chris","Brien", role = c("aut","cre"),
          comment = c(ORCID = "0000-0003-0581-1817"),
          email = "chris.brien@unisa.edu.au")
 Depends: R (>= 3.5.0)
-Imports: dae, ggplot2, stats, XLConnect, Hmisc, GGally, RColorBrewer,
+Imports: dae, ggplot2, stats, readxl, Hmisc, GGally, RColorBrewer,
         reshape, grid
 Suggests: testthat, R.rsp
 VignetteBuilder: R.rsp
@@ -22,15 +22,15 @@ Description: Assists in producing longitudinal or profile plots of measured
     their growth rates, interval growth rates and other growth statistics, such 
     as maximum growth. The package is particularly suited to preparing data from 
     high-throughput phenotyping facilities, such as imaging data from a Lemna-Tec Scananalyzer 
-    (see <http://www.lemnatec.com/products/hardware-solutions/scanalyzer-3d> for more 
+    (see <https://www.lemnatec.com/products/conveyor-scanalyzer/> for more 
     information). The package 'growthPheno' can also be installed from 
   <http://chris.brien.name/rpackages/>.
 License: GPL (>= 2)
 URL: http://chris.brien.name
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2019-07-15 05:29:23 UTC; briencj
+Packaged: 2020-01-12 08:29:47 UTC; briencj
 Author: Chris Brien [aut, cre] (<https://orcid.org/0000-0003-0581-1817>)
 Maintainer: Chris Brien <chris.brien@unisa.edu.au>
 Repository: CRAN
-Date/Publication: 2019-07-15 08:10:02 UTC
+Date/Publication: 2020-01-12 14:40:06 UTC

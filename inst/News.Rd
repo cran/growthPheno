@@ -1,5 +1,30 @@
 \name{news}
 \title{News for Package growthPheno}
+\section{growthPheno Version 1.0-21 (2020-01-11)}{
+  \itemize{
+   \item{Corrrect link in DESCRIPTION and resubmit to CRAN.}
+}}
+\section{growthPheno Version 1.0-20 (2020-01-08)}{
+  \itemize{
+   \item{Put in a warning for the \code{addMEdianWhiskers} argument of plotLongitudinal for when the \code{x} and |code{xname} arguments are not equal; this can occur when \code{x} is a \code{formula} that is based on \code{xname}.}
+}}
+\section{growthPheno Version 1.0-19 (2019-11-28)}{
+  \itemize{
+   \item{Use package readxl instead of XLConnect to read Excel worksheets to avoid dependency on Java.}
+}}
+\section{growthPheno Version 1.0-18 (2019-09-30)}{
+  \itemize{
+   \item{Fix bug in passing individuals to plotMedianDeviations from probeSmoothing.}
+}}
+\section{growthPheno Version 1.0-17 (2019-07-19)}{
+  \itemize{
+   \item{Added options \code{methods+rawcompare} and \code{df+rawcompare} that allows comparison with and without the raw data.}
+}}
+\section{growthPheno Version 1.0-16 (2019-07-16)}{
+  \itemize{
+   \item{Fix bug in plotDeviationsBoxes that stopped boxplots being plotted.}
+   \item{Modifed facet labels when \code{which.plot = "dfcompare"} to include the \code{smoothing.method}.}
+}}
 \section{growthPheno Version 1.0-15 (2019-07-11)}{
   \itemize{
    \item{Change Days to DAP in \code{tomato.dat}.}

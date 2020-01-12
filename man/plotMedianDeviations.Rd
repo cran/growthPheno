@@ -87,14 +87,12 @@ plotMedianDeviations(data, response, response.smoothed,
               transparency to be used in plotting a median deviations plot. 
               It is a ratio in which the denominator specifies the number of 
               points (or lines) that must be overplotted to give a solid cover.}
- \item{smoothing.methods}{A \code{\link{character}} giving one or more methods 
-            to use for smoothing. Currently, the two possibilites 
-            are (i) \code{"direct"}, for directly smoothing the observed 
-            \code{response}, and (ii) \code{"logarithmic"}, for smoothing the 
-            \code{log}-transformed \code{response}, followed by taking 
-            exponentials of the fitted values to back-trasnform them.}
- \item{df}{A \code{\link{numeric}} specifying the set of degrees of freedom to 
-            be probed.}
+ \item{smoothing.methods}{A \code{\link{character}} giving the smoothing method used in 
+            producing the \code{response.smoothed} and which is to be used in labelling 
+            the plot.}
+ \item{df}{A \code{\link{numeric}} specifying the smoothing degrees of freedom used in 
+            producing the \code{response.smoothed} and which is to be used in labelling 
+            the plot.}
  \item{extra.smooths}{A \code{character} specifying a \code{smoothing.method} label 
             that has been used in naming of columns of smooths of the \code{response} 
             obtained by methods other than the smoothing spline methods provided by 

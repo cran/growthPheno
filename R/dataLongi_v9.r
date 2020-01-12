@@ -61,7 +61,11 @@ globalVariables(c("Snapshot.ID.Tag", "Snapshot.Time.Stamp", "Time.after.Planting
     raw.dat[imageTimes] <- as.POSIXct(raw.dat[[imageTimes]], format = timeFormat)
   }
   else if(grepl("xlsx", file))
-    raw.dat <- readWorksheetFromFile(file, sheet=sheet)
+  {
+    raw.dat <- as.data.frame(read_excel(file, sheet=sheet))
+    colnames(raw.dat) <- make.names(colnames(raw.dat))
+    #raw.dat <- readWorksheetFromFile(file, sheet=sheet)
+  }
   else
     stop("File name does not include csv or xlsx")
   ncinput <- ncol(raw.dat)
@@ -109,11 +113,11 @@ globalVariables(c("Snapshot.ID.Tag", "Snapshot.Time.Stamp", "Time.after.Planting
   }
   
   #Change day calculation to take away a time origin and truncate to the nearest whole day
-  if (!is.null(startTime))
-    raw.dat <- calcTimes(raw.dat, imageTimes = imageTimes, timeFormat = timeFormat,
-                         intervals = timeAfterStart , startTime = startTime,
-                         intervalUnit = "days", timePositions = "Hour")
-  
+  #  if (!is.null(startTime))
+  raw.dat <- calcTimes(raw.dat, imageTimes = imageTimes, timeFormat = timeFormat,
+                       intervals = timeAfterStart , startTime = startTime,
+                       intervalUnit = "days", timePositions = "Hour")
+
   #Plot the imaging times if required
   if (plotImagetimes)
     plotImagetimes(raw.dat, intervals=timeAfterStart, timePositions = "Hour", 
@@ -1078,8 +1082,8 @@ return(response.WUI)
   #Calculate the medians and outer whisker-values over time and facetting factors
   if (addMediansWhiskers)
   {
-    if (is.null(xname))
-      stop("To get medians and outer whiskers must specify xname, the name of the column from which x is derived.")
+    if (x != xname)
+      warning("x is ", x, " and xname is ", xname, "\nIs xname the name of the column from which x is derived?")
     
     #Create a factor Times that has the plotted values of x for its labels
     times.factor <- "Times"
@@ -1207,7 +1211,7 @@ return(response.WUI)
 { 
   #Check whether have enough information to do the calculations
   if (!all(c(intervals, timePositions, groupVariable, colourVariable) %in% names(data)))
-    stop(paste("At least one of the columns for intervals, timePositions", 
+    stop(paste("At least one of the columns for intervals, timePositions, ", 
                "groupVariable or colourVariable is not present in data", sep=""))
   if (!(is.numeric(data[[intervals]])))
     data[intervals] <- dae::as.numfac(data[[intervals]])
@@ -1402,14 +1406,19 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
   options <- c("none", "absolute.boxplots", "relative.boxplots", "compare.medians")
   devnplots <- options[unlist(lapply(deviations.plots, check.arg.values, 
                                      options=options))]
-  if ("none" %in% devnplots && length(devnplots) > 1)
-    devnplots <- "none"
-  if (devnplots  == "compare.medians")
-    devnplots <- "none"
-  else
-    if ("compare.medians" %in% devnplots)
-      devnplots <- devnplots[-match("compare.medians", devnplots)]
-
+  if (length(df) > 1)
+    stop("Deviations boxplots can only be plotted for a single df at a time")
+  if (length(devnplots) > 1)
+  {
+    if ("none" %in% devnplots)
+      devnplots <- "none"
+    else
+      if ("compare.medians" %in% devnplots)
+        devnplots <- devnplots[-match("compare.medians", devnplots)]
+  } else
+    if (devnplots  == "compare.medians")
+      devnplots <- "none"
+  
   #only do deviations boxplts if  requested  
   if (devnplots != "none")
   {
@@ -1772,7 +1781,7 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
     y.title <- response
   
   #Plot comparisons
-  if ("methodscompare" %in% plots)
+  if (any(c("methods+rawcompare", "methodscompare") %in% plots))
   {
     for (degfree in df)
     { 
@@ -1783,37 +1792,54 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
                         varying = kresponses, v.names = response, 
                         idvar = id.cols, timevar = "Method")
       methods.df <- paste(methlabs, degfree, sep = "-")
-      if (length(smethods) == 1)
+      if ("methods+rawcompare" %in% plots)
       {
-        scale.labs <- c("Raw", methods.df)
-      }
-      else
-      {
-        if (length(smethods)  == 2)
+        if (length(smethods) == 1)
         {
-          scale.labs <- c(methods.df[1], "Raw", methods.df[2])
-          tmp.sm <- within(tmp.sm, 
-                           {
-                             Method <- fac.recode(factor(Method), c(2,1,3))
-                             Method <- factor(Method, labels = scale.labs)
-                           })
+          scale.labs <- c("Raw", methods.df)
         }
         else
-          stop("A maximum of two smoothing.methods can be compared")
+        {
+          if (length(smethods)  == 2)
+          {
+            scale.labs <- c(methods.df[1], "Raw", methods.df[2])
+            tmp.sm <- within(tmp.sm, 
+                             {
+                               Method <- fac.recode(factor(Method), c(2,1,3))
+                               Method <- factor(Method, labels = scale.labs)
+                             })
+          }
+          else
+            stop("A maximum of two smoothing.methods can be compared with raw data")
+        }
+        tmp.sm <- within(tmp.sm, 
+                         {
+                           Method <- factor(Method, labels = scale.labs)
+                         })
+        plt <- plotLongitudinal(data = tmp.sm, x=x, xname = xname, 
+                                response = response, individuals = individuals, 
+                                facet.x="Method", facet.y=facet.y, labeller = labeller, 
+                                colour = colour, colour.column = colour.column, 
+                                colour.values = colour.values, alpha = alpha, 
+                                x.title = x.title, y.title = y.title, 
+                                printPlot=FALSE, ggplotFuncs = ggplotFuncs, ...)
+        print(plt)
+      } else
+      {
+        tmp.sm <- within(tmp.sm, 
+                         Method <- factor(Method, labels = c("Raw",  methods.df)))
+        plt <- plotLongitudinal(data = tmp.sm[tmp.sm$Method != "Raw",], 
+                                x=x, xname = xname, 
+                                response = response, individuals = individuals, 
+                                facet.x="Method", facet.y=facet.y, labeller = labeller, 
+                                colour = colour, colour.column = colour.column, 
+                                colour.values = colour.values, alpha = alpha, 
+                                x.title = x.title, y.title = y.title, 
+                                printPlot=FALSE, ggplotFuncs = ggplotFuncs, ...)
+        print(plt)
       }
-      tmp.sm <- within(tmp.sm, 
-                       {
-                         Method <- factor(Method, labels = scale.labs)
-                       })
-      
-      plt <- plotLongitudinal(data = tmp.sm, x=x, xname = xname, 
-                              response = response, individuals = individuals, 
-                              facet.x="Method", facet.y=facet.y, labeller = labeller, 
-                              colour = colour, colour.column = colour.column, 
-                              colour.values = colour.values, alpha = alpha, 
-                              x.title = x.title, y.title = y.title, 
-                              printPlot=FALSE, ggplotFuncs = ggplotFuncs, ...)
-      print(plt)
+
+      #Plot deviation plots for both methods compare
       if (!("none" %in% devnplots))
       {
         names(tmp.sm)[match(response, names(tmp.sm))] <- response.smooth
@@ -1827,7 +1853,7 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
       }
     } 
   } else
-    if ("dfcompare" %in% plots)
+    if (any(c("df+rawcompare", "dfcompare") %in% plots))
     {
       for (smethod in smethods)
       {
@@ -1837,15 +1863,50 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
         tmp.sm <- reshape(tmp.sm, direction = "long", 
                           varying = kresponses, v.names = response, 
                           idvar = id.cols, timevar = "DF")
-        tmp.sm$DF <- factor(tmp.sm$DF, labels = c("Raw", paste("DF",df, sep =  " = ")))
-        plt <- plotLongitudinal(data = tmp.sm[tmp.sm$DF != "Raw",], x=x, xname = xname, 
-                                response = response, individuals = individuals, 
-                                facet.x="DF", facet.y=facet.y, labeller = labeller, 
-                                colour = colour, colour.column = colour.column, 
-                                colour.values = colour.values, alpha = alpha, 
-                                x.title = x.title, y.title = y.title, 
-                                printPlot=FALSE, ggplotFuncs = ggplotFuncs, ...)
-        print(plt)
+        method.dfs <- paste(methlabs[smethod], df, sep = "-")
+        if ("df+rawcompare" %in% plots)
+        {
+          if (length(df) != 2)
+          {
+            scale.labs <- c("Raw", method.dfs)
+          }
+          else
+          {
+            scale.labs <- c(method.dfs[1], "Raw", method.dfs[2])
+            tmp.sm <- within(tmp.sm, 
+                             {
+                               DF <- fac.recode(factor(DF), c(2,1,3))
+                               DF <- factor(DF, labels = scale.labs)
+                             })
+          }
+          tmp.sm <- within(tmp.sm, 
+                           {
+                             DF <- factor(DF, labels = scale.labs)
+                           })
+          
+          plt <- plotLongitudinal(data = tmp.sm, x=x, xname = xname, 
+                                  response = response, individuals = individuals, 
+                                  facet.x="DF", facet.y=facet.y, labeller = labeller, 
+                                  colour = colour, colour.column = colour.column, 
+                                  colour.values = colour.values, alpha = alpha, 
+                                  x.title = x.title, y.title = y.title, 
+                                  printPlot=FALSE, ggplotFuncs = ggplotFuncs, ...)
+          print(plt)
+        } else
+        {
+          tmp.sm <- within(tmp.sm, 
+                           DF <- factor(DF, labels = c("Raw",  method.dfs)))
+          plt <- plotLongitudinal(data = tmp.sm[tmp.sm$DF != "Raw",], x=x, xname = xname, 
+                                  response = response, individuals = individuals, 
+                                  facet.x="DF", facet.y=facet.y, labeller = labeller, 
+                                  colour = colour, colour.column = colour.column, 
+                                  colour.values = colour.values, alpha = alpha, 
+                                  x.title = x.title, y.title = y.title, 
+                                  printPlot=FALSE, ggplotFuncs = ggplotFuncs, ...)
+          print(plt)
+        }
+        
+        #Plot deviation plots for both df compare
         names(tmp.sm)[match(response, names(tmp.sm))] <- response.smooth
         tmp.sm <- merge(tmp.sm, tmp[c(id.cols, response)])
         tmp.sm <- tmp.sm[tmp.sm$DF != "Raw",]
@@ -1896,7 +1957,22 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
         }
       } else
       {
-        if (!("none") %in% plots)
+        if ("none" %in% plots)
+        {
+          for (smethod in smethods)
+          {
+            for (degfree in df)
+            { 
+              r <- paste(response.smooth, methlabs[smethod], degfree, sep=".")
+              plotDeviationsBoxes(data = tmp, x.factor = times.factor, 
+                                  observed = response, smoothed = r, 
+                                  deviations.plots = devnplots, x.title = x.title, 
+                                  facet.x=facet.x, facet.y=facet.y, labeller = labeller, 
+                                  df = degfree)
+            }
+          }
+        }
+        else
           stop(paste("which.plots option not allowed for:",plots))
       }
     }
@@ -1928,7 +2004,8 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
     stop("deviations.boxplots has been deprecated; use deviations.plots")
   options <- c("differences","derivative")
   opt <- options[check.arg.values(rates.method, options=options)]
-  options <- c("none", "smoothedonly", "bothseparately", "methodscompare", "dfcompare")
+  options <- c("none", "smoothedonly", "bothseparately", 
+               "methodscompare", "methods+rawcompare", "dfcompare", "df+rawcompare")
   plots <- options[check.arg.values(which.plots, options=options)]
   if (any(c("bothseparately", "methodscompare", "dfcompare") %in% plots))
     plotunsmooth <- TRUE
@@ -2086,7 +2163,7 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
   
   if ("compare.medians" %in% devnplots)
   {
-    plotMedianDeviations(tmp, xname = xname, 
+    plotMedianDeviations(tmp, xname = xname, individuals = individuals, 
                          response = response, response.smoothed = response.smooth, 
                          x.title = x.title, 
                          facet.x = facet.x, facet.y = facet.y, 

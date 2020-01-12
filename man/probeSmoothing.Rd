@@ -142,17 +142,23 @@ probeSmoothing(data, response = "Area", x = NULL, xname="xDays",
              plots of the smoothed traits are plotted. If \code{bothseparately}, 
              plots of the unsmoothed trait followed by the smoothed traits are 
              produced for each trait. If \code{methodscompare}, a combined plot of 
-             the unsmoothed trait and the smoothed traits for each 
-             \code{smoothing.methods} is produced for each value of \code{df}. 
-             if \code{dfcompare} a combined plot of the smoothed trait for each 
-             \code{df} is produced for each \code{smoothing.methods}.}
- \item{deviations.plots}{A \code{\link{character}} specifying one or more of
-             the \code{absolute.boxplots}, \code{relative.boxplots} deviations of 
-             the values of a trait from  their smoothed values are to be produced 
-             (observed - smoothed). In additon, the option \code{compare.medians} 
-             results in a plot that compares the medians of the deviations over the 
-             \code{times.factor} for each combination of the \code{smoothing.methods} 
-             and the \code{df}. If \code{none}, no plots are produced. The argument 
+             the smoothed traits for each \code{smoothing.methods} is produced, 
+             for each value of \code{df}. If \code{methods+rawcompare}, the unsmoothed 
+             trait is added to the combined plot. if \code{dfcompare}, a combined 
+             plot of the smoothed trait for each \code{df} is produced, for each
+             \code{smoothing.methods}. If \code{df+rawcompare}, the unsmoothed 
+             trait is added to the combined plot.}
+ \item{deviations.plots}{A \code{\link{character}} is either \code{none} or any 
+             combination of \code{absolute.boxplots}, \code{relative.boxplots} and 
+             \code{compare.medians}. If \code{none}, no plots are produced. 
+             Boxplots of the absolute and relative deviations are specified by 
+             \code{absolute.boxplots} and  \code{relative.boxplots}. The absolute 
+             deviations are the values of a trait minus their smoothed values 
+             (observed - smoothed); the relative deviations are the absolute 
+             deviations divided by the smoothed values of the trait. The option 
+             \code{compare.medians} results in a plot that compares the medians 
+             of the deviations over the \code{times.factor} for each combination 
+             of the \code{smoothing.methods} and the \code{df}. The argument 
              \code{trait.types} controls the traits for which boxplots are produced.}
  \item{alpha.med.devn}{A \code{\link{numeric}} specifying the degrees of 
               transparency to be used in plotting a median deviations plot. 
