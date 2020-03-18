@@ -164,32 +164,16 @@ Maintainer: \packageMaintainer{growthPheno}
 \seealso{\code{\link[dae:dae-package]{dae}}
 }
 \section{Overview}{
-This package can be used to analyse growth data using splines to follow the time trend and then to extract traits for further analysis. There are tools that aid in choosing the degree of smoothing and the selection of traits. There are also functions for importing and orgainizing the data that are generally applicable, although they do have defaults that  make them particularly adapted to data from a high-throughput phenotyping facility based on a Lemna-Tec Scananalyzer 3D system. 
+This package can be used to analyse growth data using splines to smooth the trend of individual plant traces over time and then to extract traits for further analysis. This process is called smoothing and extraction of traits (SET) by Brien et al. (2020), who detail the use of `growthPheno` for carrying out the method. 
+
+The package `growthPheno` has tools that aid in choosing the degree of smoothing and the selection of traits. There are also functions for importing and orgainizing the data that are generally applicable, although they do have defaults that  make them particularly adapted to data from a high-throughput phenotyping facility based on a Lemna-Tec Scananalyzer 3D system. 
 
 Data suitable for use with this package consists of columns of data obtained from a set of units (pots, carts or plots) over time. There should be a unique identifier for each unit, which by default is \code{Snapshot.ID.Tag}, and variable giving the Days after Planting for each measurement, by default {\code{Time.after.Planting..d.}}. In some cases, it is expected that there will be a column labelled \code{Snapshot.Time.Stamp}, which reflects the imaging time from which a particular data value was obtained. For imaging data, the carts/pots may be arranged in a grid of Lanes \eqn{\times}{x} Positions. 
 
-Al-Tamimi et al. (2016) describe a seven-step process to produce phenotypic traits from imaging measurements, a subset of which may be applicable to any longitudinal data set. Some minor modifications of this process has resulted in the following eight-step process:
-
-\enumerate{
- \item \strong{Import the data:} Use \code{\link{importExcel}} to import the raw data from the Excel file (xlsx or csv). This step should also involve any editing of the data needed to take account of mishaps during the data collection and the need to remove faulty data (produces \code{raw.dat}). Generally, data can be removed by replacing only values for responses with  missing values (\code{NA}) for carts whose data is to be removed, leaving the identifying information intact.
- \item \strong{Organize the data:} Use \code{\link{longitudinalPrime}} to select a subset of the imaging variables produced by the Lemna Tec Scanalyzer and, if the design is a blocked, split-plot design, use \code{\link{designFactors}} to add covariates and factors that might be used in the analysis (produces the data frame \code{longi.prime.dat}).
- \item \strong{Form derived longitudinal traits} Add derived responses that result in a value for each observation: use \code{\link{splitContGRdiff}} to obtain continuous growth rates i.e. a growth rate for each time of observation, except the first; \code{\link{WUI}} to produce continuous Water Use Indices (WUI) and \code{cumulate} to produce cumulative responses. (Produces the data frame \code{longi.dat}.)
- \item \strong{Exploratory analysis:} Use \code{\link{splitSplines}} to fit splines, using say direct smoothing and an arbitrary value of 5 for  the \code{df}, to smooth the longitudinal trends in the primary traits and calculate continuous growth rates from the smoothed response (added to the data frame \code{longi.dat}). There are two options for calculating continuous smoothed growth rates: (i) by differencing --- use  \code{\link{splitContGRdiff}}; (ii) from the first derivatives of the splines --- in \code{\link{splitSplines}} include \code{1} in the \code{deriv} argument, include \code{"AGR"} in \code{suffices.deriv} and set the \code{RGR} to say \code{"RGR"}.Produce plots of the unsmoothed and smoothed longitudinal data using \code{\link{plotLongitudinal}}.
- \item \strong{Choose the \code{smoothing.method} and \code{df}:} Use \code{\link{probeSmoothing}} to compare the smooths for a number of values of \code{df} and for different \code{smoothing.methods}. If necessary, re-run \code{\link{splitSplines}} with a revised value of \code{df}, replacing replace the initial smoothed primary traits and derived tratis in \code{longi.dat};  replot using \code{\link{plotLongitudinal}}. 
-  \item \strong{Clean the data:} Check for anomalies in the data, perhaps employing \code{\link{plotAnom}}. Decide if excluding data is justified. To exclude data, consider whether it is better, especially for the analysis stage, if only the values of the responses are removed by setting them to missing (\code{NA}), rather than removing complete rows of the data.  
- \item \strong{Extract per-cart traits:} These are traits for which there is a single value for each cart, pot or plot (by default, identified by the \code{Snapshot.ID.Tag}). (produces the data frame \code{cart.dat})
- \enumerate{
-   \item Initialize a cart data.frame with the factors and covariates for a single observation from all carts. This can be done by subsetting \code{longi.dat} so that there is one entry for each cart.
-   \item Use \code{\link{getTimesSubset}} to add traits at specific times to the cart \code{data.frame}, often the first and last day of imaging for each \code{Snapshot.ID.Tag}. The times need to be selected so that there is one and only one observation for each cart. Also form traits, such as growth rates over the whole imaging period, based on these values
-   \item Based on the longitudinal plots, decide on the intervals for  which growth rates and WUIs are to be calculated. The growth rates for intervals are calculated from the continuous growth rates, using \code{\link{intervalGRdiff}}, if the continuous growth rates were calculated by differencing, or \code{\link{intervalGRaverage}}, if they were calculated from first derivatives. To calculate WUIs for intervals, use \code{\link{intervalWUI}}, The interval growth rates and WUIs are added to the cart \code{data.frame}.
- }
-   \item (Optional) There is also the possibility that, for experiments investigating salinity, the Shoot Ion Independent Tolerance (SIIT) index can be calculated using \code{\link{twoLevelOpcreate}}. 
-}
-
-The vignette Rice illustrates this process. Use `vignette("Rice", package = "growthPheno") to access the vignette.
+The vignettes Tomato and Rice illustrate this process, the former being the example presented in Bren et al. (2020). Use `vignette("Tomato", package = "growthPheno") or `vignette("Rice", package = "growthPheno") to access either of the vignettes.
 
 }
 
 \references{
-Al-Tamimi, N, Brien, C.J., Oakey, H., Berger, B., Saade, S., Ho, Y. S., Schmockel, S. M., Tester, M. and Negrao, S. (2016) New salinity tolerance loci revealed in rice using high-throughput non-invasive phenotyping. \emph{Nature Communications}, \bold{7}, 13342.
+Brien, C., Jewell, N., Garnett, T., Watts-Williams, S. J., & Berger, B. (2020). Smoothing and extraction of traits in the growth analysis of noninvasive phenotypic data. *Plant Methods*, **16**, 36. <http://dx.doi.org/10.1186/s13007-020-00577-6>.
 }

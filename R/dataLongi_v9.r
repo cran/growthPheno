@@ -1828,8 +1828,10 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
       {
         tmp.sm <- within(tmp.sm, 
                          Method <- factor(Method, labels = c("Raw",  methods.df)))
-        plt <- plotLongitudinal(data = tmp.sm[tmp.sm$Method != "Raw",], 
-                                x=x, xname = xname, 
+        tmp.sm.sub <- tmp.sm[tmp.sm$Method != "Raw",]
+        tmp.sm.sub <- within(tmp.sm.sub, 
+                             Method <- factor(Method, labels = methods.df))
+        plt <- plotLongitudinal(data = tmp.sm.sub, x=x, xname = xname, 
                                 response = response, individuals = individuals, 
                                 facet.x="Method", facet.y=facet.y, labeller = labeller, 
                                 colour = colour, colour.column = colour.column, 
@@ -1896,7 +1898,10 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
         {
           tmp.sm <- within(tmp.sm, 
                            DF <- factor(DF, labels = c("Raw",  method.dfs)))
-          plt <- plotLongitudinal(data = tmp.sm[tmp.sm$DF != "Raw",], x=x, xname = xname, 
+          tmp.sm.sub <- tmp.sm[tmp.sm$DF != "Raw",]
+          tmp.sm.sub <- within(tmp.sm.sub, 
+                               DF <- factor(DF, labels = method.dfs))
+          plt <- plotLongitudinal(data = tmp.sm.sub, x=x, xname = xname, 
                                   response = response, individuals = individuals, 
                                   facet.x="DF", facet.y=facet.y, labeller = labeller, 
                                   colour = colour, colour.column = colour.column, 

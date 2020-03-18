@@ -1,6 +1,6 @@
 Package: growthPheno
-Version: 1.0-21
-Date: 2020-01-12
+Version: 1.0-22
+Date: 2020-03-17
 Title: Plotting, Smoothing and Growth Trait Extraction for Longitudinal
         Data
 Authors@R: person("Chris","Brien", role = c("aut","cre"),
@@ -29,8 +29,8 @@ License: GPL (>= 2)
 URL: http://chris.brien.name
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2020-01-12 08:29:47 UTC; briencj
+Packaged: 2020-03-17 07:21:52 UTC; briencj
 Author: Chris Brien [aut, cre] (<https://orcid.org/0000-0003-0581-1817>)
 Maintainer: Chris Brien <chris.brien@unisa.edu.au>
 Repository: CRAN
-Date/Publication: 2020-01-12 14:40:06 UTC
+Date/Publication: 2020-03-18 06:10:02 UTC

@@ -1,5 +1,10 @@
 \name{news}
 \title{News for Package growthPheno}
+\section{growthPheno Version 1.0-22 (2020-03-17)}{
+  \itemize{
+   \item{Revise Rice vignette and add Tomato vignette.}
+   \item{Fix a bug for \code{which.plots = "compare"} in probeSmoothing.}
+}}
 \section{growthPheno Version 1.0-21 (2020-01-11)}{
   \itemize{
    \item{Corrrect link in DESCRIPTION and resubmit to CRAN.}
