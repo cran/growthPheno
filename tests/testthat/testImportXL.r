@@ -136,3 +136,34 @@ test_that("importXLRename", {
   testthat::expect_true(all(c("Area.SF0", "Area.SL0", "Area.SU0", 
                               "Area.TV0") %in% names(raw.19.dat)))
 })
+
+
+cat("#### Test importExcel times\n")
+test_that("importXLRename", {
+  skip_if_not_installed("growthPheno")
+  skip_on_cran()
+  library(dae)
+  library(ggplot2)
+  library(growthPheno)
+  
+  camera.names <- c("SV1", "SV2", "TV")
+  names(camera.names) <- paste(c("RGB_Side_Far_0", "RGB_Side_Far_4", "RGB_TV"), "Result", sep=".")
+  
+  #Cannot test xlsx files because these cannot be included in a package
+  #Test for csv file  
+  #The warning occurs because the first Snaopshot.ID.Tag does not have a DAP15
+  testthat::expect_warning(raw.dat <- importExcel(file = "./data/0498_Rice_Plett_test.csv",
+                                                  startTime = "27/02/2020 0:00 AM",
+                                                  timeFormat = "%d/%m/%Y %H:%M",
+                                                  labsCamerasViews = camera.names))
+  testthat::expect_true(all(dim(raw.dat) == c(863, 26)))
+  testthat::expect_true(all(c("area.SV1", "area.SV2", "area.TV") %in% names(raw.dat)))
+  testthat::expect_true(all(table(raw.dat$Time.after.Planting..d.) == c(215,216,216,216)))
+  
+  #Non-matching time formats is a problem for csv files
+  testthat::expect_warning(testthat::expect_error(
+    raw.dat <- importExcel(file = "./data/0498_Rice_Plett test.csv",
+                           startTime = "2020-02-27 0:00 AM",
+                           timeFormat = "%Y-%m-%d %H:%M",
+                           labsCamerasViews = camera.names)))
+})

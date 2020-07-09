@@ -245,5 +245,47 @@ test_that("tomato_growthPheno", {
   testthat::expect_equal(nrow(med), 1120)
   testthat::expect_equal(ncol(med), 8)
   
+  #Multiple df, single methods
+  testthat::expect_warning(tom <- probeSmoothing(data = tomato.dat, response = "Area", 
+                                                 times.factor = "DAP", xname="xDAP", df=5:6,
+                                                 smoothing.methods = c("logarithmic"),
+                                                 facet.x = ".", facet.y = ".",
+                                                 which.plots = "none",
+                                                 propn.types = c(0.02, 0.2, 0.5),
+                                                 deviations.plots = "compare.medians"))
+  testthat::expect_equal(nrow(tom), 1120)
+  testthat::expect_equal(ncol(tom), 13)
+  
+  #'Single `df`, multiple methods
+  testthat::expect_warning(tom <- probeSmoothing(data = tomato.dat, response = "Area", 
+                                                 times.factor = "DAP", xname="xDAP", df=5,
+                                                 smoothing.methods = c("direct","logarithmic"),
+                                                 facet.x = ".", facet.y = ".",
+                                                 which.plots = "none",
+                                                 deviations.plots = "none"))
+  testthat::expect_equal(nrow(tom), 1120)
+  testthat::expect_equal(ncol(tom), 13)
+  testthat::expect_warning(med <- plotMedianDeviations(data = tom, response = "Area", 
+                                                       response.smoothed = "Area.smooth", 
+                                                       xname = "xDAP", 
+                                                       smoothing.methods = c("dir", "log"), 
+                                                       df = 5, x.title = "DAP", 
+                                                       facet.x = ".", facet.y = ".",
+                                                       propn.types = c(0.02, 0.2, 0.5)))
+  
+  testthat::expect_equal(nrow(med), 70)
+  testthat::expect_equal(ncol(med), 8)
+  
+  #'Single `df`, single method
+  testthat::expect_warning(tom <- probeSmoothing(data = tomato.dat, response = "Area", 
+                                                 times.factor = "DAP", xname="xDAP", df=5,
+                                                 smoothing.methods = c("direct"),
+                                                 facet.x = ".", facet.y = ".",
+                                                 which.plots = "none",
+                                                 propn.types = c(0.02, 0.2, 0.5),
+                                                 deviations.plots = "compare.medians"))
+  testthat::expect_equal(nrow(tom), 1120)
+  testthat::expect_equal(ncol(tom), 10)
+
 })
 

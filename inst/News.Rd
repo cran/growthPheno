@@ -1,5 +1,23 @@
 \name{news}
 \title{News for Package growthPheno}
+\section{growthPheno Version 1.0-26 (2020-07-09)}{
+  \itemize{
+   \item{Fix bug in intervalWUI such the WUI was incorrectly calculated for \code{include.total.water = FALSE}.}
+}}
+\section{growthPheno Version 1.0-25 (2020-04-26)}{
+  \itemize{
+   \item{Fix bug in importExcel when calculated \code{TimeAfterPlaning} resulting from a timezone difference between the dates read in by readxl and that specified by \code{timeStart}. As a result the dat could be in error by one day for some observations.}
+}}
+\section{growthPheno Version 1.0-24 (2020-04-16)}{
+  \itemize{
+   \item{Fix bug in plotMedianDeviations when the plot involves a single DF.}
+}}
+\section{growthPheno Version 1.0-23 (2020-04-03)}{
+  \itemize{
+   \item{Add \code{x} to the call to plotMedianDeviations in probeSmoothing.}
+   \item{Update name of  Rice vignette.}
+   \item{Change the Maintainer email address.}
+}}
 \section{growthPheno Version 1.0-22 (2020-03-17)}{
   \itemize{
    \item{Revise Rice vignette and add Tomato vignette.}

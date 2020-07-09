@@ -1167,7 +1167,7 @@ return(response.WUI)
     }
     if (!is.null(startTime))
     { 
-      startTime <- as.POSIXct(startTime, format = timeFormat)
+      startTime <- as.POSIXct(startTime, format = timeFormat, tz = "UTC")
       data[[intervals]] <- difftime(data[[imageTimes]], startTime, units=intervalUnit)
       data[[intervals]] <- as.numeric(trunc(data[[intervals]], units=intervalUnit))
     }
@@ -1654,7 +1654,9 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
   med.devn.dat <- as.data.frame(do.call(rbind, med.devn.dat))
   med.devn.dat <- cbind(fac.gen(lapply(dat.sm[c("Scheme", facet.cols, times.factor)], levels)), 
                         med.devn.dat)
-  scheme.comb <-  fac.gen(list(Method = methlabs[smethods], DF = df))
+  df.ch <- as.character(df)
+  df.ch <- df.ch[stringi::stri_order(df.ch, numeric = TRUE)]
+  scheme.comb <-  fac.gen(list(Method = methlabs[smethods], DF = df.ch))
   if (!is.null(extra.smooths))
   {
     levels(scheme.comb$Method) <- c(levels(scheme.comb$Method), extra.smooths)
@@ -1710,7 +1712,7 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
             panel.grid.major = element_line(colour = "grey60", size = 0.5), 
             panel.grid.minor = element_line(colour = "grey80", size = 0.5))
     
-    if (length(levels(med.devn.dat$Method)) == 1)
+    if (length(levels(med.devn.dat$Method)) == 1 ||length(levels(med.devn.dat$DF)) == 1)
       plt <- plt + guides(shape = FALSE)
     
     #Plot an envelope of the response median
@@ -2168,8 +2170,8 @@ plotDeviationsBoxes <- function(data, observed, smoothed, x.factor,
   
   if ("compare.medians" %in% devnplots)
   {
-    plotMedianDeviations(tmp, xname = xname, individuals = individuals, 
-                         response = response, response.smoothed = response.smooth, 
+    plotMedianDeviations(tmp, response = response, response.smoothed = response.smooth, 
+                         x = x, xname = xname, individuals = individuals, 
                          x.title = x.title, 
                          facet.x = facet.x, facet.y = facet.y, 
                          labeller = labeller, 

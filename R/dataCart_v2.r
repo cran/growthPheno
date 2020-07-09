@@ -395,11 +395,13 @@
                                                as.numfac(eval(parse(text=times.factor))) <= 
                                                  max(end.times)))
   if (!is.null(suffix.interval))
-  { water.name <- paste(water.use,"Total",suffix.interval,sep=".")
+  { 
+    water.name <- paste(water.use,"Total",suffix.interval,sep=".")
     wui.name <- paste("WUI",suffix.interval,sep=".")
   }
   else
-  { water.name <- paste(water.use,"Total",sep=".")
+  { 
+    water.name <- paste(water.use,"Total",sep=".")
     wui.name <- paste("WUI",sep=".")
   }
   names(sum.dat)[match(paste(water.use,"sum",sep="."), names(sum.dat))] <- water.name
@@ -416,25 +418,31 @@
   interval.resp <- merge(interval.resp, sum.dat, by = individuals)
   interval.resp <- interval.resp[ do.call(order, interval.resp), ]
   water.index <- lapply(responses, 
-                        function(name, interval.resp, start.times, end.times, water.name, include.total.water = FALSE)
-                        { start.name <- paste(name,"start",sep=".")
+                        function(name, interval.resp, start.times, end.times, water.name, 
+                                 include.total.water = FALSE)
+                        { 
+                          start.name <- paste(name,"start",sep=".")
                           end.name <- paste(name,"end",sep=".")
                           if (include.total.water)
-                          { rates <- vector("list", length = 2)
-                            rates[[1]] <- interval.resp[end.name][,1] - interval.resp[start.name][,1]
+                          { 
+                            rates <- vector("list", length = 2)
+                            rates[[1]] <- interval.resp[end.name][,1] - 
+                                                        interval.resp[start.name][,1]
                             rates[[2]] <- WUI(rates[[1]], interval.resp[water.name][,1])
                             if (!is.null(suffix.interval))
-                            { names(rates)[1] <- paste(name,"Total",suffix.interval,sep=".")
+                            { 
+                              names(rates)[1] <- paste(name,"Total",suffix.interval,sep=".")
                               names(rates)[2] <- paste(name,"WUI",suffix.interval,sep=".")
-                            }
-                            else
-                            { names(rates)[1] <- paste(name,"Total",sep=".")
+                            } else
+                            { 
+                              names(rates)[1] <- paste(name,"Total",sep=".")
                               names(rates)[2] <- paste(name,"WUI",sep=".")
                             }
-                          }
-                          else
-                          { rates <- vector("list", length = 1)
-                            rates[[1]] <- WUI((interval.resp[end.name][,1] - interval.resp[start.name][1,]),  
+                          } else
+                          { 
+                            rates <- vector("list", length = 1)
+                            rates[[1]] <- WUI((interval.resp[end.name][,1] - 
+                                                 interval.resp[start.name][,1]),  
                                               interval.resp[water.name][,1])
                             if (!is.null(suffix.interval))
                               names(rates)[1] <- paste(name,"WUI",suffix.interval,sep=".")

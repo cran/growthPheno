@@ -35,11 +35,11 @@ plotMedianDeviations(data, response, response.smoothed,
              \code{trait.type} if not a \code{response} only, a \code{smoothing.method} or an 
              \code{extra.smooths} and, if a \code{smoothing.method}, a df; 
              each component should be separated by a period (.).
- \item{response}{A \code{character} specifying the response variable for which the 
+ \item{response}{A \code{\link{character}} specifying the response variable for which the 
              observed values are supplied. Depending on the setting of 
              \code{trait.types}, the observed values of related \code{trait.types} 
              may also need to be be supplied.}
- \item{response.smoothed}{A \code{character} specifying the name of the column 
+ \item{response.smoothed}{A \code{\link{character}} specifying the name of the column 
              containing the values of the smoothed response variable, corresponding 
              to \code{response} and obtained for the combinations of 
              \code{smoothing.methods} and \code{df}, usually using smoothing splines. 
@@ -56,7 +56,8 @@ plotMedianDeviations(data, response, response.smoothed,
              \code{\link{factor}}(s) that define the subsets of the \code{data} 
              for which each subset corresponds to the \code{response} values for 
              an individual.}
- \item{x.title}{Title for the x-axis. If \code{NULL} then set to \code{xname}.}
+ \item{x.title}{A \code{\link{character}} giving the title for the x-axis. 
+             If \code{NULL} then set to \code{xname}.}
  \item{y.titles}{A \code{\link{character}} giving the titles for the y-axis, 
              one for each trait specified by \code{trait.types}. 
              If \code{NULL} then set to the traits derived for \code{response} 
@@ -93,8 +94,8 @@ plotMedianDeviations(data, response, response.smoothed,
  \item{df}{A \code{\link{numeric}} specifying the smoothing degrees of freedom used in 
             producing the \code{response.smoothed} and which is to be used in labelling 
             the plot.}
- \item{extra.smooths}{A \code{character} specifying a \code{smoothing.method} label 
-            that has been used in naming of columns of smooths of the \code{response} 
+ \item{extra.smooths}{A \code{\link{character}} specifying one or more \code{smoothing.method} labels 
+            that have been used in naming of columns of smooths of the \code{response} 
             obtained by methods other than the smoothing spline methods provided by 
             \code{growthPheno}. Depending on the setting of \code{trait.types}, 
             the smoothed values of related trait types must also be supplied, with names

@@ -170,7 +170,7 @@ The package `growthPheno` has tools that aid in choosing the degree of smoothing
 
 Data suitable for use with this package consists of columns of data obtained from a set of units (pots, carts or plots) over time. There should be a unique identifier for each unit, which by default is \code{Snapshot.ID.Tag}, and variable giving the Days after Planting for each measurement, by default {\code{Time.after.Planting..d.}}. In some cases, it is expected that there will be a column labelled \code{Snapshot.Time.Stamp}, which reflects the imaging time from which a particular data value was obtained. For imaging data, the carts/pots may be arranged in a grid of Lanes \eqn{\times}{x} Positions. 
 
-The vignettes Tomato and Rice illustrate this process, the former being the example presented in Bren et al. (2020). Use `vignette("Tomato", package = "growthPheno") or `vignette("Rice", package = "growthPheno") to access either of the vignettes.
+The vignettes \code{Tomato} and \code{Rice} illustrate this process, the former being the example presented in Brien et al. (2020). Use \code{vignette("Tomato", package = "growthPheno")} or \code{vignette("Rice", package = "growthPheno")} to access either of the vignettes.
 
 }
 
