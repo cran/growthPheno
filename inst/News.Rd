@@ -1,9 +1,29 @@
 \name{news}
 \title{News for Package growthPheno}
+\section{growthPheno Version 1.0-34 (2021-10-14)}{
+  \itemize{
+   \item{Deprecate anomPlot, corrPlot, imagetimesPlot and longiPlots.}
+   \item{Modified a ggplot function call to deal with a deprecation option.}
+   \item{Add printPlot argument to plotCorrmatrix, plotImagetimes and plotMedianDeviations.}
+   \item{Have the \code{ggplot} object returned for plotCorrmatrix, plotDeviationsBoxes and plotMedianDeviations.}
+}}
+\section{growthPheno Version 1.0-33 (2021-05-07)}{
+  \itemize{
+   \item{Move legend and to the bottom and turn it into a colour bar in plotCorrmatrix.}
+}}
+\section{growthPheno Version 1.0-32 (2021-05-06)}{
+  \itemize{
+   \item{Fix bug labelling y-axis variables in plotCorrmatrix.}
+}}
+\section{growthPheno Version 1.0-31 (2021-05-06)}{
+  \itemize{
+   \item{Add option \code{axis.text.size} to plotCorrmatrix for the \code{heatmap} and made a legend box for it.}
+   \item{Added \code{ggplotFuncs} option to plotCorrmatrix.}
+}}
 \section{growthPheno Version 1.0-30 (2020-12-12)}{
   \itemize{
-   \item{Fix a bug in splitValueCalculate associated with the arguments \code{which.obs} and \code{which.values}.
-   \item{Fix a bug for R 4.1.0 in longitudinalPrime, importExcel and plotMedianDeviations.}}
+   \item{Fix a bug in splitValueCalculate associated with the arguments \code{which.obs} and \code{which.values}.}
+   \item{Fix a bug for R 4.1.0 in longitudinalPrime, importExcel and plotMedianDeviations.}
 }}
 \section{growthPheno Version 1.0-29 (2020-11-10)}{
   \itemize{
