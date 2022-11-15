@@ -1,0 +1,5 @@
+RicePrepped.dat
+RiceRaw.dat
+cart.dat
+exampleData: cart.dat longi.dat raw.dat
+tomato.dat

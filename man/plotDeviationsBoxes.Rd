@@ -5,8 +5,11 @@
 \usage{
 plotDeviationsBoxes(data, observed, smoothed, x.factor, 
                     x.title = NULL, y.titles = NULL,
-                    facet.x = ".", facet.y = ".", labeller = NULL, 
-                    df, deviations.plots = "absolute", 
+                    facet.x = ".", facet.y = ".", 
+                    facet.labeller = NULL, 
+                    facet.scales = "fixed", 
+                    angle.x = 0, 
+                    deviations.plots = "absolute", 
                     ggplotFuncs = NULL, printPlot = TRUE, ...)
  }
 \arguments{
@@ -18,23 +21,26 @@ plotDeviationsBoxes(data, observed, smoothed, x.factor,
                  corresponding to \code{observed}, for which values are supplied.}
  \item{x.factor}{A \code{\link{character}} giving the \code{\link{factor}} to be 
                 plotted on the x-axis.}
- \item{x.title}{Title for the x-axis. If \code{NULL} then set to \code{xname}.}
+ \item{x.title}{Title for the x-axis. If \code{NULL} then set to \code{x}.}
  \item{y.titles}{A \code{\link{character}} giving the titles for the y-axis, 
              one for each plot specified \code{deviations.plots}.}
  \item{facet.x}{A \code{\link{data.frame}} giving the variable to be used to 
                 form subsets to be plotted in separate columns of plots. 
                 Use \code{"."} if a split into columns is not wanted. For 
                 \code{which.plots} set to \code{methodcompare} or \code{dfcompare} 
-                \code{facet.x} is ignored.}
+                \code{facet.x.pf} is ignored.}
  \item{facet.y}{A \code{\link{data.frame}} giving the variable to be used to 
                 form subsets to be plotted in separate rows of plots.
                 Use \code{"."} if a split into columns is not wanted.}
- \item{labeller}{A \code{\link{ggplot}} \code{\link{function}} for labelling the 
+ \item{facet.labeller}{A \code{\link{ggplot}} \code{\link{function}} for labelling the 
                  facets of a plot produced using the \code{\link{ggplot}} function. 
                  For more information see \code{\link{ggplot}}.}
- \item{df}{A \code{\link{numeric}} specifying the smoothing degrees of freedom used in 
-            producing the \code{response.smoothed} and which is to be used in labelling 
-            the plot.}
+ \item{facet.scales}{A \code{\link{character}} specifying whether the scales are shared 
+             across all facets of a plot ("fixed"), or do they vary across rows (the 
+             default, "free_x"), columns ("free_y"), or both rows and columns ("free")?}
+ \item{angle.x}{A \code{\link{numeric}} between 0 and 360 that gives the angle of the 
+             x-axis text to the x-axis. It can also be set by supplying, in 
+             \code{ggplotFuncs}, a \code{theme} function from \code{ggplot2}.}
  \item{deviations.plots}{A \code{\link{character}} specifying whether 
               \code{absolute} and/or \code{relative} deviations are to be plotted.}
  \item{ggplotFuncs}{A \code{\link{list}}, each element of which contains the 
@@ -44,7 +50,7 @@ plotDeviationsBoxes(data, observed, smoothed, x.factor,
                 These functions are applied in creating the \code{ggplot} object for plotting.}
  \item{printPlot}{A \code{\link{logical}} indicating whether or not to print the 
                   plots.}
-\item{...}{allows passing of arguments to \code{\link{plotLongitudinal}}.}
+\item{...}{allows passing of arguments to \code{\link{ggplot}}.}
 }
 \value{A list whose components are named \code{absolute} and \code{relative}; a 
        component will contain an object of class "\code{ggplot}" when the plot has been 
@@ -55,8 +61,8 @@ plotDeviationsBoxes(data, observed, smoothed, x.factor,
 \examples{
 data(exampleData)
 
-plotDeviationsBoxes(longi.dat, observed = "Area", smoothed = "Area.smooth",
-                    x.factor="Days", facet.x = ".", facet.y= ".", df =5)
+plotDeviationsBoxes(longi.dat, observed = "PSA", smoothed = "sPSA",
+                    x.factor="DAP", facet.x.pf = ".", facet.y= ".", df =5)
 }
 \keyword{hplot}
 \keyword{manip}

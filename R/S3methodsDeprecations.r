@@ -6,11 +6,6 @@ rcontrib <- function(obj, ...) UseMethod("rcontrib")
 
 #Deprecations
 
-getDates <- function(...)
-{ .Deprecated(new = "getTimesSubset", package = "growthPheno")
-  invisible()
-}
-
 anomPlot <- function(...)
 { .Deprecated(new = "plotAnom", package = "growthPheno")
   invisible()
@@ -21,6 +16,17 @@ corrPlot <- function(...)
   invisible()
 }
 
+getDates <- function(...)
+{ .Deprecated(new = "getTimesSubset", package = "growthPheno")
+  invisible()
+}
+
+getImageData <- function(...)
+{ .Deprecated(new = "prepImageData", package = "growthPheno")
+  invisible()
+}
+
+
 imagetimesPlot <- function(...)
 { .Deprecated(new = "plotImagetimes", package = "growthPheno")
   invisible()
@@ -28,5 +34,10 @@ imagetimesPlot <- function(...)
 
 longiPlot <- function(...)
 { .Deprecated(new = "plotLongitudinal", package = "growthPheno")
+  invisible()
+}
+
+probeDF <- function(...)
+{ .Deprecated(new = "probeSmooths", package = "growthPheno")
   invisible()
 }
