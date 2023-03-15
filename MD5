@@ -1,6 +1,6 @@
-f37f8d0f814aa1a7793eafa6022d0d69 *DESCRIPTION
+28327bec0bd49f0863ff797a0bedeb4e *DESCRIPTION
 5250df5f7d94348965d071e2e906b285 *NAMESPACE
-a008d0866e8634895051030eb799a2f9 *R/PVA.v3.r
+16ec0d4a4d029ccac8d5f51f9a212e96 *R/PVA.v3.r
 12b9671474d80aede607f4b1e9e4d808 *R/S3methodsDeprecations.r
 1183355fac24e831329ed57880cc9aa3 *R/byIndv.r
 fa9d6818e7f86360debdbc545fa070df *R/byIndv4Intvl.r
@@ -10,9 +10,9 @@ ba810671398df5d3494350b1bda69fbf *R/calcs.r
 3fd8e15e05abbd60e41d911e52f3a6f7 *R/growthPhenoUtilities.r
 07cf29f170ad4ec54b20f168138c5f36 *R/softDeprec.r
 075b19dcde195e2b6af03b2e3b119b70 *R/traitExtract.r
-c3ce23cecc49fbfd9310a03333f3990f *R/traitSmooth.r
+f3e76d65df6a405110b88841ad56a3ab *R/traitSmooth.r
 f5b883c6bef11c70aeee31f5c1a0b33a *R/traitUtilities.r
-d1d4519338b991b614f20ffb6e41f3e1 *build/partial.rdb
+e864af2e857aa3ed70c03be456780ef3 *build/partial.rdb
 f78b4cbda4374c01546af853a6d3c268 *build/vignette.rds
 f25f8ae41a6cc99a75f4ecce9c5c1e97 *data/RicePrepped.dat.rda
 774e6a2b97301d8dd9a56bce45e70763 *data/RiceRaw.dat.rda
@@ -20,12 +20,12 @@ f25f8ae41a6cc99a75f4ecce9c5c1e97 *data/RicePrepped.dat.rda
 e9cbb27dc7bf1dd23851f6f7ac30084f *data/datalist
 e16662da71155300defb0fbf89ea3557 *data/exampleData.rda
 fc15d44e177cbfbf7bbbacc556aee206 *data/tomato.dat.rda
-cc9dfae00bfc4b585a05506cd1115a9d *inst/News.Rd
-466965b79f260117a05861225de5c354 *inst/doc/Rice.pdf
+f2e56c3c0eed5f2e45ea22f9de9cdb6a *inst/News.Rd
+fb583fa5b17b59a065108c6c482aa009 *inst/doc/Rice.pdf
 9fb7a0bd37e21da171b3c684bf8cc2ac *inst/doc/Rice.pdf.asis
-7ad076273033199c92d18538d5a1d581 *inst/doc/Tomato.pdf
+b16d04c330d262f905e439ec558367f3 *inst/doc/Tomato.pdf
 c096833bab7b52129566385d5a4cdc9f *inst/doc/Tomato.pdf.asis
-7f735ff12e7b6d08f2f747b53a522b0c *inst/doc/growthPheno-manual.pdf
+111b6613ca0ec39c95dc293e3ef13618 *inst/doc/growthPheno-manual.pdf
 1b2fd9eba3114e4640dd4b87e1d66b4e *inst/doc/growthPheno-manual.pdf.asis
 d486627f3434983008fefa7180593aea *inst/extdata/raw19datarow.csv
 dc8d2f2d356d7444d1bab14409b393ee *inst/extdata/rawdata.xlsx
@@ -80,7 +80,7 @@ ad7958e3daf3587f0ef24fb4e0cd2993 *man/plotLongitudinal.Rd
 f97d1c8a2873f4fe3b95660c21379036 *man/plotSmoothsMedianDevns.Rd
 cc8fb68d07a4a59f066c9e10fc8595a7 *man/prepImageData.Rd
 48e2b6d3e6b8f5f1d1cae9b3bccd20c6 *man/probeSmoothing.Rd
-d20891904f108f3d7e34fefb8d4ac7e2 *man/probeSmooths.Rd
+c9625fb9d97528b53f15655d76bff476 *man/probeSmooths.Rd
 815034b91df19bbba061fb9add91be85 *man/rcontrib.Rd
 1fe4ba89cb9421a95344204ccfca2e2d *man/rcontrib.data.frame.Rd
 e13c88b63a1d2319c1978534ceb2b4ee *man/rcontrib.matrix.Rd
@@ -90,8 +90,8 @@ e6c96e032e8d7639f18486b80c928b68 *man/smooths.frame.Rd
 4ae33352faba9fc1eb35cf3c426fd4f7 *man/splitSplines.Rd
 ac435a698fcbe1bb5d08b61609e4e9b8 *man/splitValueCalculate.Rd
 1ff09cb477b89875d3b772d0680640ed *man/tomato.dat.Rd
-03104f6b79fc8f54574111a9d4031c66 *man/traitExtractFeatures.Rd
-c1ffeba6e6dfc61049c8e4d3c3a5e395 *man/traitSmooth.Rd
+98825e5606e481a1195b0b67b39775ec *man/traitExtractFeatures.Rd
+9926aebf4456185468d4f9c07fb4b6f6 *man/traitSmooth..Rd
 6ff3fa2c1d86984f2b669c1bb105670b *man/twoLevelOpcreate.Rd
 e1c35e7c747d43c659e5c597057abefa *man/validSmoothsFrame.Rd
 0284a68ad0511d3e917d28406c61a6a5 *tests/testthat.R
