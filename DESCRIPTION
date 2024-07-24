@@ -1,6 +1,6 @@
 Package: growthPheno
-Version: 2.1.24
-Date: 2024-02-29
+Version: 2.1.25
+Date: 2024-07-24
 Title: Functional Analysis of Phenotypic Growth Data to Smooth and
         Extract Traits
 Authors@R: person("Chris","Brien", role = c("aut","cre"),
@@ -34,8 +34,8 @@ URL: http://chris.brien.name/
 BugReports: https://github.com/briencj/growthPheno/issues
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2024-02-29 03:00:37 UTC; briencj
+Packaged: 2024-07-24 06:17:32 UTC; briencj
 Author: Chris Brien [aut, cre] (<https://orcid.org/0000-0003-0581-1817>)
 Maintainer: Chris Brien <chris.brien@adelaide.edu.au>
 Repository: CRAN
-Date/Publication: 2024-02-29 04:30:02 UTC
+Date/Publication: 2024-07-24 07:30:01 UTC
