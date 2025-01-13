@@ -1,9 +1,18 @@
 \name{news}
 \title{News for Package growthPheno}
+\section{growthPheno Version 3.1.10 (2025-01-13)}{
+  \itemize{
+  \item Deprecate the soft-deprecated functions fitSpline, intervalGRaverage, intervalGRdiff, intervalValueCalculate, intervalWUI, longitudinalPrime, plotLongitudinal, plotMedianDeviations, probeSmoothing, splitContGRdiff, splitSplines and splitValueCalculate.
+  \item Modify plotCorrmatrix so that arguments \code{show.sig} and \code{printPlot} apply to the \code{matrixplots}, in addition to the \code{heatmap}. Also, arrange for the return of any plots produced in a list object.
+  }}
+\section{growthPheno Version 2.1.26 (2024-08-08)}{
+  \itemize{
+  \item Minor revisions to the manual. 
+  }}
 \section{growthPheno Version 2.1.25 (2024-07-24)}{
   \itemize{
-  \item Fix bug that meant profile plots from traitsSmooth was ignoring the setting of the \code{angle.x} argument.
-  \item Add warning to byIndv4Times_GRsDiff when the the asumption all observatiions have the same first time is unmet. 
+  \item Fix bug that meant profile plots from traitsSmooth were ignoring the setting of the \code{angle.x} argument.
+  \item Add warning to byIndv4Times_GRsDiff when the the asumption all observations have the same first time is unmet. 
   }}
 \section{growthPheno Version 2.1.24 (2024-02-29)}{
   \itemize{
@@ -174,7 +183,7 @@
 }}
 \section{growthPheno Version 2.0-10 (2022-05-25)}{
   \itemize{
-  \item This version incorporates a major overhaul of the smoothing functionality of growthPheno with new and revised functions, new arguments in some functions and changes in the order of some arguments. The descriptiion of the function has been revised.
+  \item This version incorporates a major overhaul of the smoothing functionality of growthPheno with new and revised functions, new arguments in some functions and changes in the order of some arguments. The description of the function has been revised.
   \item Add \code{spline.type}, \code{lambda} and \code{npspline.segments} arguments to fitSpline, splitSplines, and  probeSmoothing to incorporate P-spline smoothing (\code{PS}) using the \code{JOPS} package.
   \item Replaced \code{AGR} and \code{RGR} with the argument \code{extra.rate} to simplify the specification.
   \item Allow the specification of \code{lambda}, as an alternative to \code{df}, for natural cubic smoothing splines (\code{NCSS}).

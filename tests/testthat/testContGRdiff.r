@@ -7,9 +7,8 @@ test_that("exampleData_splitContGRdiff", {
   data(exampleData)
   
   #ntimes2span == 2, avail.times.diffs = TRUE
-  t <- splitContGRdiff(longi.dat, response="PSA", 
-                       times.factor = "DAP", 
-                       which.rates=c("AGR", "RGR"), avail.times.diffs = TRUE) 
+  t <- byIndv4Times_GRsDiff(longi.dat, response="PSA", times = "DAP", 
+                            which.rates=c("AGR", "RGR"), avail.times.diffs = TRUE) 
   testthat::expect_equal(nrow(t), 280)
   testthat::expect_equal(ncol(t), 37)
   testthat::expect_true(all(unique(t$DAP) == c(28, 30:42)))
