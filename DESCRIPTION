@@ -1,13 +1,13 @@
 Package: growthPheno
-Version: 3.1.11
-Date: 2025-03-16
+Version: 3.1.12
+Date: 2025-05-01
 Title: Functional Analysis of Phenotypic Growth Data to Smooth and
         Extract Traits
 Authors@R: person("Chris","Brien", role = c("aut","cre"),
          comment = c(ORCID = "0000-0003-0581-1817"),
          email = "chris.brien@adelaide.edu.au")
 Depends: R (>= 3.5.0)
-Imports: dae, GGally, ggplot2, grDevices, Hmisc, JOPS, methods,
+Imports: dae, dplyr, GGally, ggplot2, grDevices, Hmisc, JOPS, methods,
         RColorBrewer, readxl, reshape, stats, stringi, utils
 Suggests: testthat, nlme, R.rsp, scales
 VignetteBuilder: R.rsp
@@ -34,8 +34,8 @@ URL: http://chris.brien.name/
 BugReports: https://github.com/briencj/growthPheno/issues
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2025-03-16 10:56:59 UTC; briencj
-Author: Chris Brien [aut, cre] (<https://orcid.org/0000-0003-0581-1817>)
+Packaged: 2025-05-01 08:11:28 UTC; briencj
+Author: Chris Brien [aut, cre] (ORCID: <https://orcid.org/0000-0003-0581-1817>)
 Maintainer: Chris Brien <chris.brien@adelaide.edu.au>
 Repository: CRAN
-Date/Publication: 2025-04-03 02:40:06 UTC
+Date/Publication: 2025-05-02 09:00:02 UTC
